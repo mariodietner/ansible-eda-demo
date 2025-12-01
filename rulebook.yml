@@ -17,6 +17,8 @@
               incident_id: "{{ event.payload.id }}"
               affected_host: "{{ event.payload.host }}"
               severity: "{{ event.payload.severity | default('unknown') }}"
+              reason: "{{ event.payload.reason | default('n/a') }}"
+              source_host: "{{ event.payload.host | default('unknown') }}"
 #        run_playbook:
 #          name: playbooks/respond.yml
 #          extra_vars:
