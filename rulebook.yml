@@ -9,11 +9,19 @@
     - name: Act on high CPU alerts
       condition: event.payload.alert == "cpu_high"
       action:
-        run_playbook:
-          name: playbooks/respond.yml
-          extra_vars:
-            reason: "{{ event.payload.reason | default('n/a') }}"
-            source_host: "{{ event.payload.host | default('unknown') }}"
+        run_job_template:
+          name: "Restart Webserver"        # Job template name in Controller
+          organization: "Default"          # Controller org
+          job_args:
+            extra_vars:
+              incident_id: "{{ event.payload.id }}"
+              affected_host: "{{ event.payload.host }}"
+              severity: "{{ event.payload.severity | default('unknown') }}"
+#        run_playbook:
+#          name: playbooks/respond.yml
+#          extra_vars:
+#            reason: "{{ event.payload.reason | default('n/a') }}"
+#            source_host: "{{ event.payload.host | default('unknown') }}"
     - name: Log everything else
       condition: true
       action:
