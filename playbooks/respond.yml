@@ -1,6 +1,6 @@
 ---
 - name: Respond to high CPU
-  hosts: localhost
+  hosts: all
   gather_facts: false
   vars:
     log_dir: "/tmp/eda-demo"

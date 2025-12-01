@@ -1,6 +1,6 @@
 ---
-- name: local-webhook-demo
-  hosts: local
+- name: webhook-eda-demo
+  hosts: all
   sources:
     - ansible.eda.webhook:
         host: 0.0.0.0
