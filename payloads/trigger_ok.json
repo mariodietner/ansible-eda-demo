@@ -1,0 +1,4 @@
+{
+  "alert": "cpu_ok",
+  "host": "web01"
+}

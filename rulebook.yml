@@ -1,0 +1,21 @@
+---
+- name: local-webhook-demo
+  hosts: local
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+  rules:
+    - name: Act on high CPU alerts
+      condition: event.payload.alert == "cpu_high"
+      action:
+        run_playbook:
+          name: playbooks/respond.yml
+          extra_vars:
+            reason: "{{ event.payload.reason | default('n/a') }}"
+            source_host: "{{ event.payload.host | default('unknown') }}"
+    - name: Log everything else
+      condition: true
+      action:
+        print_event:
+          pretty: true

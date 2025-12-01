@@ -1,0 +1,5 @@
+{
+  "alert": "cpu_high",
+  "host": "web01",
+  "reason": "CPU > 90% for 5m"
+}

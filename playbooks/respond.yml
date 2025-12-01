@@ -1,0 +1,25 @@
+---
+- name: Respond to high CPU
+  hosts: localhost
+  gather_facts: false
+  vars:
+    log_dir: "/tmp/eda-demo"
+  tasks:
+    - name: Ensure log directory exists
+      ansible.builtin.file:
+        path: "{{ log_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Save full triggering event to a file
+      ansible.builtin.copy:
+        dest: "{{ log_dir }}/event-{{ '%Y%m%d-%H%M%S' | strftime }}.json"
+        content: "{{ ansible_eda.event | to_nice_json }}"
+        mode: "0644"
+
+    - name: Show a friendly message
+      ansible.builtin.debug:
+        msg:
+          - "🚀 Remediation triggered for host={{ source_host }}"
+          - "Reason: {{ reason }}"
+          - "Full event captured under {{ log_dir }}/event-<timestamp>.json"
