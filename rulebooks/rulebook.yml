@@ -14,8 +14,6 @@
           organization: "Default"          # Controller org
           job_args:
             extra_vars:
-              incident_id: "{{ event.payload.id }}"
-              affected_host: "{{ event.payload.host }}"
               severity: "{{ event.payload.severity | default('unknown') }}"
               reason: "{{ event.payload.reason | default('n/a') }}"
               source_host: "{{ event.payload.host | default('unknown') }}"
