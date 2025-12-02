@@ -10,7 +10,7 @@
       condition: event.payload.alert == "cpu_high"
       action:
         run_job_template:
-          name: "Restart Webserver"        # Job template name in Controller
+          name: "EDA Demo"        # Job template name in Controller
           organization: "Default"          # Controller org
           job_args:
             extra_vars:
